@@ -9,9 +9,11 @@ setInterval(async () => {
   //updateSystemInfo('ram', newData)
 
   color = 'blue';
-  if ( a.availableCapacity / a.capacity > 0.3 ) {
+  console.log(a.availableCapacity / a.capacity);
+  const usedCapacityPresent = (a.capacity - a.availableCapacity) / a.capacity
+  if ( usedCapacityPresent <= 0.3 ) {
     color = 'blue'
-  } else if (a.availableCapacity / a.capacity > 0.6) {
+  } else if (usedCapacityPresent > 0.3 && usedCapacityPresent < 0.65) {
     color = 'green'
   } else {
     color = 'red'
@@ -22,14 +24,14 @@ setInterval(async () => {
   updateDoughnutChart(doughnutChart, data[data.length - 1], color)
 
   dataForLineChart = prepareDataForLineChart(data);
-  console.log('dataForLineChart');
-  console.log(dataForLineChart);
+  //console.log('dataForLineChart');
+  //console.log(dataForLineChart);
   updateLineChart(lineChart, dataForLineChart)
 }, 300)
 
 const labels = [
-  'Used Capacity',
-  'Free Capacity'
+  'Used Memory',
+  'Free Memory'
 ];
 
 const doughnutInitialData = {
