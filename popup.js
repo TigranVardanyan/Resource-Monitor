@@ -1,7 +1,14 @@
+let data = [];
+
+
+
 setInterval(async () => {
   a = await chrome.system.memory.getInfo();
-  addData(myChart, [a.availableCapacity, a.capacity - a.availableCapacity])
-}, 1000)
+  let newData = [a.availableCapacity, a.capacity - a.availableCapacity];
+  data.push(newData);
+  updateSystemInfo('ram', newData)
+  updateDoughnutChart(myChart, data[data.length - 1])
+}, 5000)
 
 const labels = [
   'Used Capacity',
@@ -21,20 +28,39 @@ const data = {
   }]
 };
 
-const config = {
+const doughnutConfig = {
   type: 'doughnut',
   data: data,
   options: {}
 };
 
-const myChart = new Chart(
-  document.getElementById('resourceChart'),
-  config
+const configLine = {
+  type: 'line',
+  data: data,
+};
+
+const doughnutChart = new Chart(
+  document.getElementById('doughnutChart'),
+  doughnutConfig
 );
 
-function addData(chart, data) {
+const lineChart = new Chart(
+  document.getElementById('lineChart'),
+  configLine
+);
+
+function updateDoughnutChart(doughnutChart, data) {
   chart.data.datasets.forEach((dataset) => {
     dataset.data = data;
   });
   chart.update();
 }
+
+function updateDoughnutChart(lineChart, data) {
+  chart.data.datasets.forEach((dataset) => {
+    dataset.data = data;
+  });
+  chart.update();
+}
+
+
