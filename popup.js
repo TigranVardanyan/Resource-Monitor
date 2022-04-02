@@ -1,5 +1,5 @@
 let data = [];
-
+let alarm_log = [];
 let warningThreshold = document.getElementById('warningThreshold').value;
 let redThreshold = document.getElementById('redThreshold').value;
 
@@ -7,28 +7,23 @@ setInterval(async () => {
   a = await chrome.system.memory.getInfo();
   let newData = [a.capacity - a.availableCapacity, a.availableCapacity];
   data.push(newData);
-  //updateSystemInfo('ram', newData)
-
   color = 'blue';
-
-
-
   const usedCapacityPresent = (a.capacity - a.availableCapacity) / a.capacity * 100
   if ( +usedCapacityPresent <= +warningThreshold ) {
     color = 'blue'
   } else if (+usedCapacityPresent > +warningThreshold && +usedCapacityPresent < +redThreshold) {
     color = 'green'
   } else {
+    const alarm = {
+      description: usedCapacityPresent + '%',
+      date: (new Date()).toLocaleTimeString()
+    }
+    alarm_log
     color = 'red'
   }
 
-
-
   updateDoughnutChart(doughnutChart, data[data.length - 1], color)
-
   dataForLineChart = prepareDataForLineChart(data);
-  //console.log('dataForLineChart');
-  //console.log(dataForLineChart);
   updateLineChart(lineChart, dataForLineChart)
 }, 1000)
 
@@ -126,7 +121,6 @@ const prepareDataForLineChart = (data) => {
     });
   }
 
-
   return dataForLineChart;
 }
 
@@ -160,3 +154,8 @@ document.getElementById('thresholdSetup').addEventListener('click', () => {
 document.getElementById('extendedVersion').addEventListener('click', () => {
   chrome.tabs.create({ url: "chrome-extension://" + chrome.runtime.id + "/index.html" });
 })
+
+
+setInterval(() => {
+  console.log('popup - ' + Math.random());
+}, 2500)
