@@ -1,13 +1,14 @@
-// todo interactive icon
-
 const initialObj = {
   'ram': []
 }
 
+chrome.runtime.onInstalled.addListener(() => {
+  console.log('Worker inited');
+});
+
 chrome.storage.sync.set(initialObj);
 
 setInterval(async () => {
-  console.log('background - ');
   a = await chrome.system.memory.getInfo();
 
   const capacity = a.capacity;
@@ -39,8 +40,8 @@ setInterval(async () => {
   await chrome.storage.sync.get(['ram'], function(result) {
     data = result['ram']
     data.push(object)
-
+    data.slice(data.length - 60,data.length)
     chrome.storage.sync.set({ 'ram': data });
   });
 
-},1000)
+},2500)

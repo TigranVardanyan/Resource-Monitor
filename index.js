@@ -33,8 +33,7 @@ setInterval(async () => {
 export_csv.addEventListener('click', () => {
   filteredData = filterStoredData(storedData);
   const csv = generateCSV(filteredData);
-
-  console.log('csv', csv);
+  download_file(csv)
 })
 
 
@@ -45,4 +44,30 @@ function filterStoredData(data) {
   return filteredData
 }
 
+function generateCSV(objArray) {
+  if ( objArray.length != 0 ) {
+    const array = typeof objArray !== 'object' ? JSON.parse(objArray) : objArray;
+    let str = `${Object.keys(array[0]).map(value => `"${value}"`).join(",")}` + '\r\n';
+
+    return array.reduce((str, next) => {
+      str += `${Object.values(next).map(value => `"${value}"`).join(",")}` + '\r\n';
+      return str;
+    }, str);
+  } else {
+    return '';
+  }
+
+}
+
+
+function download_file(content) {
+  let b = new Blob([content], { type: 'mime' })
+
+  console.log('b', b);
+  var url = URL.createObjectURL(b);
+
+  chrome.downloads.download({
+    url: url // The object URL can be used as download URL
+  });
+}
 
