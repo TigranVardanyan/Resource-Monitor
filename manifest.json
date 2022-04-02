@@ -7,7 +7,7 @@
   "background": {
     "service_worker": "background.js"
   },
-  "permissions": ["storage", "activeTab", "scripting", "system","system.display", "system.memory", "action", "tabs"],
+  "permissions": ["storage", "activeTab", "scripting", "system","system.display", "system.memory", "tabs", "downloads"],
   "action": {
     "default_popup": "popup.html",
     "default_icon": {
@@ -17,7 +17,6 @@
       "128": "/images/icon.png"
     }
   },
-  "browser_action": {},
   "icons": {
     "16": "/images/icon.png",
     "32": "/images/icon.png",

@@ -156,6 +156,6 @@ document.getElementById('extendedVersion').addEventListener('click', () => {
 })
 
 
-setInterval(() => {
-  console.log('popup - ' + Math.random());
-}, 2500)
+//setInterval(() => {
+//  console.log('popup - ' + Math.random());
+//}, 2500)
