@@ -1,0 +1,27 @@
+{
+  "name": "Resource Monitor",
+  "description": "Extensions for tracking and visualizing the amount of RAM available.",
+  "version": "0.0.1",
+  "manifest_version": 3,
+  "options_page": "index.html",
+  "background": {
+    "service_worker": "background.js"
+  },
+  "permissions": ["storage", "activeTab", "scripting", "system","system.display", "system.memory", "action"],
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "/images/icon.png",
+      "32": "/images/icon.png",
+      "48": "/images/icon.png",
+      "128": "/images/icon.png"
+    }
+  },
+  "browser_action": {},
+  "icons": {
+    "16": "/images/icon.png",
+    "32": "/images/icon.png",
+    "48": "/images/icon.png",
+    "128": "/images/icon.png"
+  }
+}
