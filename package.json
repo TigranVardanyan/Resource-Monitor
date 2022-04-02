@@ -1,0 +1,22 @@
+{
+  "name": "resource-monitor",
+  "version": "0.0.1",
+  "description": "Extensions for tracking and visualizing the amount of RAM available",
+  "main": "background.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TigranVardanyan/Resource-Monitor.git"
+  },
+  "author": "tig.va",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TigranVardanyan/Resource-Monitor/issues"
+  },
+  "homepage": "https://github.com/TigranVardanyan/Resource-Monitor#readme"
+}
