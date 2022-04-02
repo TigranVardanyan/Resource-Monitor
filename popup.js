@@ -1,6 +1,7 @@
 let data = [];
 
-
+let warningThreshold = document.getElementById('warningThreshold').value;
+let redThreshold = document.getElementById('redThreshold').value;
 
 setInterval(async () => {
   a = await chrome.system.memory.getInfo();
@@ -9,11 +10,13 @@ setInterval(async () => {
   //updateSystemInfo('ram', newData)
 
   color = 'blue';
-  console.log(a.availableCapacity / a.capacity);
-  const usedCapacityPresent = (a.capacity - a.availableCapacity) / a.capacity
-  if ( usedCapacityPresent <= 0.3 ) {
+
+
+
+  const usedCapacityPresent = (a.capacity - a.availableCapacity) / a.capacity * 100
+  if ( +usedCapacityPresent <= +warningThreshold ) {
     color = 'blue'
-  } else if (usedCapacityPresent > 0.3 && usedCapacityPresent < 0.65) {
+  } else if (+usedCapacityPresent > +warningThreshold && +usedCapacityPresent < +redThreshold) {
     color = 'green'
   } else {
     color = 'red'
@@ -27,7 +30,7 @@ setInterval(async () => {
   //console.log('dataForLineChart');
   //console.log(dataForLineChart);
   updateLineChart(lineChart, dataForLineChart)
-}, 300)
+}, 1000)
 
 const labels = [
   'Used Memory',
@@ -126,3 +129,34 @@ const prepareDataForLineChart = (data) => {
 
   return dataForLineChart;
 }
+
+
+
+document.getElementById('thresholdSetup').addEventListener('click', () => {
+  warningThresholdNode = document.getElementById('warningThreshold');
+  redThresholdNode = document.getElementById('redThreshold');
+  if(warningThresholdNode.value > 100 || warningThresholdNode.value < 0) {
+    warningThresholdNode.value = 30
+  }
+  if(redThresholdNode.value > 100 || redThresholdNode.value < 0) {
+    redThresholdNode.value = 65
+  }
+  if(+warningThresholdNode.value >= +redThresholdNode.value) {
+    if ( redThresholdNode.value != 100 ) {
+      redThresholdNode.value = +warningThresholdNode.value + 1
+      redThreshold = redThresholdNode.value
+      warningThreshold = warningThresholdNode.value
+    } else {
+      warningThresholdNode.value = +redThresholdNode.value - 1
+      warningThreshold = warningThresholdNode.value
+      redThreshold = redThresholdNode.value
+    }
+  } else {
+    redThreshold = redThresholdNode.value
+    warningThreshold = warningThresholdNode.value
+  }
+})
+
+document.getElementById('extendedVersion').addEventListener('click', () => {
+  chrome.tabs.create({ url: "chrome-extension://" + chrome.runtime.id + "/index.html" });
+})
