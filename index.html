@@ -1,11 +1,29 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <link rel="stylesheet" href="./lib/bootstrap.min.css">
+  <script src="./lib/bootstrap.bundle.min.js"></script>
+
 </head>
 <body>
 <div>
   <h1>Resource monitor</h1>
-  
+  <button id="export_csv" class="btn btn-primary">Export CSV file</button>
+  <table class="table">
+    <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Alarm description</th>
+      <th scope="col">Date</th>
+    </tr>
+    </thead>
+    <tbody id="alert_body">
+
+    </tbody>
+  </table>
 </div>
+
+<script src="index.js"></script>
+<script src="background.js"></script>
 </body>
 </html>
