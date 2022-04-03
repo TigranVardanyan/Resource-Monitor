@@ -7,7 +7,7 @@
   <script src="./node_modules/chart.js/dist/chart.js"></script>
 </head>
 <body>
-<div>
+<div id="main_container" class="main_container">
   <h1>Resource monitor</h1>
   <div class="accordion" id="accordionExample">
     <div class="accordion-item">
@@ -21,7 +21,7 @@
            data-bs-parent="#accordionExample">
         <div class="container">
           <div class="row">
-            <form id="" class="row g-3">
+            <form id="threshold_form" class="row g-3">
               <div class="col-md-6">
                 <label for="warningThreshold" class="form-label alert-warning">Warning Threshold Limit(use %)</label>
                 <input type="number" class="form-control" id="warningThreshold" value="30" min="0" max="100">

@@ -55,11 +55,6 @@ function download_file( content ) {
 //todo refactor
 document.getElementById('thresholdSetup').addEventListener('click', () => {
 
-  console.log('warningThreshold', warningThreshold.value);
-  console.log('redThreshold', redThreshold.value);
-
-
-
   if(+warningThreshold.value > 100 || +warningThreshold.value < 0) {
     warningThreshold.value = 30
   }
@@ -74,9 +69,6 @@ document.getElementById('thresholdSetup').addEventListener('click', () => {
     }
   }
 
-  console.log('warningThreshold', warningThreshold.value);
-  console.log('redThreshold', redThreshold.value);
-
   const optionsObj = {
     'options': {
       'warning': warningThreshold.value,
@@ -84,7 +76,16 @@ document.getElementById('thresholdSetup').addEventListener('click', () => {
     }
   }
 
-  chrome.storage.sync.set(optionsObj);
+  chrome.storage.sync.set(optionsObj, () => {
+    let node = `
+    <div id="success_message" class="alert alert-success" role="alert" style="position: fixed;bottom: 50px;right: 50px; width: 300px; text-align: center;">
+      Threshold successfully updated
+    </div>`;
+    document.getElementById('threshold_form').innerHTML += node
+    setTimeout(() => {
+      document.getElementById('success_message').remove()
+    },2000)
+  });
 
 })
 const doughnutChart = new Chart(
