@@ -6,27 +6,14 @@
   <script src="./node_modules/chart.js/dist/chart.js"></script>
 </head>
 <body>
-<form id="popup_form">
-  <div class="col-md-6">
-    <label for="warningThreshold" class="form-label">Warning Threshold Limit(use %)</label>
-    <input type="number" class="form-control" id="warningThreshold" value="30" min="0" max="100">
-  </div>
-  <div class="col-md-6">
-    <label for="redThreshold" class="form-label">Red Threshold Limit(use %)</label>
-    <input type="number" class="form-control" id="redThreshold" value="65" min="0" max="100">
-  </div>
-  <input id="thresholdSetup" class="btn btn-primary" value="Submit">
-</form>
 
 <div>
   <canvas id="doughnutChart"></canvas>
 </div>
-<div>
-  <canvas id="lineChart"></canvas>
-</div>
 
-<button id="extendedVersion" class="btn btn-primary" >Extended version</button>
+<button id="extendedVersion" class="btn btn-primary">Extended version</button>
 
+<script src="doughnutChart.js"></script>
 <script src="popup.js"></script>
 
 

@@ -1,6 +1,11 @@
 let storedData = []
 const alert_body = document.getElementById('alert_body')
 const export_csv = document.getElementById('export_csv')
+
+const warningThreshold = document.getElementById('warningThreshold');
+const redThreshold = document.getElementById('redThreshold');
+
+
 setInterval(async () => {
   await chrome.storage.sync.get(['ram'], function ( result ) {
     storedData = result['ram']
@@ -71,3 +76,27 @@ function download_file(content) {
   });
 }
 
+document.getElementById('thresholdSetup').addEventListener('click', () => {
+  warningThresholdNode = document.getElementById('warningThreshold');
+  redThresholdNode = document.getElementById('redThreshold');
+  if(warningThresholdNode.value > 100 || warningThresholdNode.value < 0) {
+    warningThresholdNode.value = 30
+  }
+  if(redThresholdNode.value > 100 || redThresholdNode.value < 0) {
+    redThresholdNode.value = 65
+  }
+  if(+warningThresholdNode.value >= +redThresholdNode.value) {
+    if ( redThresholdNode.value != 100 ) {
+      redThresholdNode.value = +warningThresholdNode.value + 1
+      redThreshold = redThresholdNode.value
+      warningThreshold = warningThresholdNode.value
+    } else {
+      warningThresholdNode.value = +redThresholdNode.value - 1
+      warningThreshold = warningThresholdNode.value
+      redThreshold = redThresholdNode.value
+    }
+  } else {
+    redThreshold = redThresholdNode.value
+    warningThreshold = warningThresholdNode.value
+  }
+})
