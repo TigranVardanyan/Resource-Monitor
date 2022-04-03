@@ -1,7 +1,7 @@
 {
   "name": "Resource Monitor",
   "description": "Extensions for tracking and visualizing the amount of RAM available.",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "manifest_version": 3,
   "options_page": "index.html",
   "background": {
