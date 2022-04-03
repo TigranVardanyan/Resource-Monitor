@@ -12,7 +12,7 @@ setInterval(async () => {
   });
   let table_body = '';
 
-  if(alerts.length != 0) {
+  if(alerts && alerts.length != 0) {
     alerts.forEach(( value, index ) => {
       table_body +=
         `<tr>
