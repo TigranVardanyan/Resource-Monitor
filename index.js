@@ -3,6 +3,9 @@ const alert_body = document.getElementById('alert_body')
 const export_csv = document.getElementById('export_csv')
 const warningThreshold = document.getElementById('warningThreshold');
 const redThreshold = document.getElementById('redThreshold');
+
+
+
 setInterval(async () => {
   await chrome.storage.sync.get(['ram'], function ( result ) {
     storedData = result['ram']
@@ -55,7 +58,7 @@ function generateCSV( objArray ) {
 }
 
 function download_file( content ) {
-  let b = new Blob([content], { type: 'mime' })
+  let b = new Blob([content], { type: 'text/csv' })
   var url = URL.createObjectURL(b);
   chrome.downloads.download({
     url: url // The object URL can be used as download URL

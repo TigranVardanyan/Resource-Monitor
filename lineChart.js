@@ -51,10 +51,10 @@ const prepareDataForLineChart = ( data ) => {
 function updateLineChart( lineChart ) {
   setInterval(async () => {
     chrome.runtime.sendMessage({ type: "getData" }, ( result ) => {
-      console.log('updateLineChart');
+      //console.log('updateLineChart');
       const data = result['result']
       const preparedData = prepareDataForLineChart(data)
-      console.log('preparedData', preparedData);
+      //console.log('preparedData', preparedData);
       lineChart.data.datasets.forEach(( dataset ) => {
         dataset.data = preparedData;
       });

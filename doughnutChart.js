@@ -23,7 +23,7 @@ const doughnutConfig = {
 function updateDoughnutChart( doughnutChart ) {
   setInterval(async () => {
     chrome.runtime.sendMessage({ type: "getData" }, ( result ) => {
-      console.log('updateDoughnutChart');
+      //console.log('updateDoughnutChart');
       const data = result['result']
       const last = data[data.length - 1]
       const dataForDoughnut = [last['availableCapacity'], last['capacity']]
