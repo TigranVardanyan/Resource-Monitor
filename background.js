@@ -1,5 +1,9 @@
 const initialObj = {
-  'ram': []
+  'ram': [],
+  'options': {
+    'warning': 30,
+    'red': 65
+  }
 }
 
 chrome.runtime.onInstalled.addListener(() => {
@@ -40,8 +44,9 @@ setInterval(async () => {
   await chrome.storage.sync.get(['ram'], function(result) {
     data = result['ram']
     data.push(object)
-    data.slice(data.length - 60,data.length)
+
+    data = data.slice(data.length - 50,data.length)
     chrome.storage.sync.set({ 'ram': data });
   });
 
-},2500)
+},1000)

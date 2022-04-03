@@ -1,7 +1,9 @@
 let data = [];
 let alarm_log = [];
-let warningThreshold = document.getElementById('warningThreshold').value;
-let redThreshold = document.getElementById('redThreshold').value;
+//let warningThreshold = document.getElementById('warningThreshold').value;
+//let redThreshold = document.getElementById('redThreshold').value;
+
+
 
 setInterval(async () => {
   a = await chrome.system.memory.getInfo();
@@ -10,16 +12,16 @@ setInterval(async () => {
   color = 'blue';
   const usedCapacityPresent = (a.capacity - a.availableCapacity) / a.capacity * 100
   if ( +usedCapacityPresent <= +warningThreshold ) {
-    color = 'blue'
+    color = '#0d6efd'
   } else if (+usedCapacityPresent > +warningThreshold && +usedCapacityPresent < +redThreshold) {
-    color = 'green'
+    color = '#ffecb5'
   } else {
     const alarm = {
       description: usedCapacityPresent + '%',
       date: (new Date()).toLocaleTimeString()
     }
     alarm_log
-    color = 'red'
+    color = '#f8d7da'
   }
 
   updateDoughnutChart(doughnutChart, data[data.length - 1], color)
