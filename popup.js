@@ -1,7 +1,6 @@
 let data = [];
-let alarm_log = [];
-//let warningThreshold = document.getElementById('warningThreshold').value;
-//let redThreshold = document.getElementById('redThreshold').value;
+let warningThreshold = document.getElementById('warningThreshold').value;
+let redThreshold = document.getElementById('redThreshold').value;
 
 
 
