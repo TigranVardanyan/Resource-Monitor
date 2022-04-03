@@ -5,7 +5,7 @@ This project was Tigran Vardanyan
 [Repository on Github](https://github.com/TigranVardanyan/Resource-Monitor)
 
 ---
-###Get started
+### Get started
 ```
 - download project to your computer
 - run npm install command in project folder
@@ -15,7 +15,7 @@ This project was Tigran Vardanyan
 - for a better user experience, pin the extension to the quickbar
 ```
 ---
-###User guide
+### User guide
 ```
 - The extension allows you to track the amount of RAM
 - You can simply click on the extension icon to see the available RAM
@@ -25,12 +25,12 @@ This project was Tigran Vardanyan
     * Export data to CSV file
 ```
 ---
-###Compatibility
+### Compatibility
 ```
 Compatible with Google Chrome browser
 ```
 ---
-###Known bugs
+### Known bugs
 ```
 - This request exceeds the MAX_WRITE_OPERATIONS_PER_HOUR quota.
 extension use chrome storage and it have limit on write operations per hour
@@ -39,7 +39,7 @@ Solution - remove extension from browser, rename project folder, upload by Load 
 
 Also fixes any unexpected termination of the extension
 ```
-#Roadmap
+# Roadmap
 
 * Interactive icon for extension - [1.0.2](https://github.com/TigranVardanyan/Resource-Monitor/issues/2)
 
