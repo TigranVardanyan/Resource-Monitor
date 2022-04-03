@@ -30,6 +30,13 @@ export_csv.addEventListener('click', () => {
   download_file(csv)
 })
 
+function filterStoredData( data ) {
+  filteredData = data.filter(( value ) => {
+    return value.alertLevel >= 1
+  })
+  return filteredData
+}
+
 function generateCSV( objArray ) {
   if ( objArray.length != 0 ) {
     const array = typeof objArray !== 'object' ? JSON.parse(objArray) : objArray;

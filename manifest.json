@@ -11,16 +11,16 @@
   "action": {
     "default_popup": "popup.html",
     "default_icon": {
-      "16": "/images/icon_0.png",
-      "32": "/images/icon_0.png",
-      "48": "/images/icon_0.png",
-      "128": "/images/icon_0.png"
+      "16": "assets/images/icon_0.png",
+      "32": "assets/images/icon_0.png",
+      "48": "assets/images/icon_0.png",
+      "128": "assets/images/icon_0.png"
     }
   },
   "icons": {
-    "16": "/images/icon_0.png",
-    "32": "/images/icon_0.png",
-    "48": "/images/icon_0.png",
-    "128": "/images/icon_0.png"
+    "16": "assets/images/icon_0.png",
+    "32": "assets/images/icon_0.png",
+    "48": "assets/images/icon_0.png",
+    "128": "assets/images/icon_0.png"
   }
 }
