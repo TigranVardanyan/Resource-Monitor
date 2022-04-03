@@ -3,7 +3,7 @@ const initialObj = {
   'options': {
     'warning': 30,
     'red': 65
-  }
+  },
 }
 
 let alertColor = null;

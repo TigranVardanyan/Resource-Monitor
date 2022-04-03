@@ -25,13 +25,20 @@ const doughnutConfig = {
 
 
 
-function updateDoughnutChart(doughnutChart, data) {
-  const last = data[data.length - 1]
+function updateDoughnutChart( doughnutChart ) {
 
-  const dataForDoughnut = [last['availableCapacity'], last['capacity']]
-  doughnutChart.data.datasets.forEach((dataset) => {
-    dataset.data = dataForDoughnut;
-    dataset.backgroundColor = [last['alertColor'], 'transparent']
-  });
-  doughnutChart.update();
+  setInterval(async () => {
+    chrome.runtime.sendMessage({ type: "getData" }, ( result ) => {
+      console.log('updateDoughnutChart');
+      const data = result['result']
+      const last = data[data.length - 1]
+      const dataForDoughnut = [last['availableCapacity'], last['capacity']]
+      doughnutChart.data.datasets.forEach(( dataset ) => {
+        dataset.data = dataForDoughnut;
+        dataset.backgroundColor = [last['alertColor'], 'transparent']
+      });
+      doughnutChart.update();
+    })
+  }, 1000)
+
 }
