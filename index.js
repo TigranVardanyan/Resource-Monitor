@@ -1,4 +1,4 @@
-let storedData = []
+let alerts = []
 const alert_body = document.getElementById('alert_body')
 const export_csv = document.getElementById('export_csv')
 const warningThreshold = document.getElementById('warningThreshold');
@@ -7,41 +7,28 @@ const redThreshold = document.getElementById('redThreshold');
 
 
 setInterval(async () => {
-  await chrome.storage.sync.get(['ram'], function ( result ) {
-    storedData = result['ram']
+  await chrome.storage.sync.get(['alerts'], function ( result ) {
+    alerts = result['alerts']
   });
-  for ( const data of storedData ) {
-    let table_body =
-      `<tr>
-        <th scope="row">3</th>
-        <td>80%</td>
-        <td>22:11</td>
-      </tr>`
-  }
   let table_body = '';
-  const filteredStoredData = filterStoredData(storedData)
-  filteredStoredData.forEach(( value, index ) => {
-    table_body +=
-      `<tr>
+
+  if(alerts.length != 0) {
+    alerts.forEach(( value, index ) => {
+      table_body +=
+        `<tr>
         <th scope="row">${index + 1}</th>
         <td>${value.usedCapacityPresent.toFixed(2)}%</td>
         <td>${value.date}</td>
       </tr>`
-  })
-  alert_body.innerHTML = table_body
+    })
+    alert_body.innerHTML = table_body
+  }
 }, 1000)
 export_csv.addEventListener('click', () => {
-  filteredData = filterStoredData(storedData);
+  filteredData = filterStoredData(alerts);
   const csv = generateCSV(filteredData);
   download_file(csv)
 })
-
-function filterStoredData( data ) {
-  filteredData = data.filter(( value ) => {
-    return value.alertLevel >= 1
-  })
-  return filteredData
-}
 
 function generateCSV( objArray ) {
   if ( objArray.length != 0 ) {
