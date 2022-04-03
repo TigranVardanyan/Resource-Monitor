@@ -1,6 +1,6 @@
 {
   "name": "resource-monitor",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Extensions for tracking and visualizing the amount of RAM available",
   "main": "background.js",
   "directories": {
