@@ -17,7 +17,7 @@ const configLine = {
     scales: {
       y: {
         min: 0,
-        max: 16000000000,
+        max: 1,
       }
     }
   }
@@ -58,6 +58,10 @@ function updateLineChart( lineChart ) {
       lineChart.data.datasets.forEach(( dataset ) => {
         dataset.data = preparedData;
       });
+      lineChart.options.scales.y = {
+        min: 0,
+        max: data[0]['capacity'],
+      }
       lineChart.update();
     })
   }, 3000)
