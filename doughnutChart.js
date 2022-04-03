@@ -2,7 +2,6 @@ const labels = [
   'Used Memory',
   'Free Memory'
 ];
-
 const doughnutInitialData = {
   labels: labels,
   datasets: [{
@@ -15,18 +14,13 @@ const doughnutInitialData = {
     data: [0, 1],
   }]
 };
-
 const doughnutConfig = {
   type: 'doughnut',
   data: doughnutInitialData,
-  options: {
-  }
+  options: {}
 };
 
-
-
 function updateDoughnutChart( doughnutChart ) {
-
   setInterval(async () => {
     chrome.runtime.sendMessage({ type: "getData" }, ( result ) => {
       console.log('updateDoughnutChart');
@@ -40,5 +34,4 @@ function updateDoughnutChart( doughnutChart ) {
       doughnutChart.update();
     })
   }, 1000)
-
 }
