@@ -21,7 +21,7 @@ setInterval(async () => {
   await chrome.storage.sync.get(['ram', 'options', 'alerts'], function ( result ) {
     data = result['ram']
     options = result['options']
-    console.log('options', options);
+    //console.log('options', options);
     switch ( true ) {
       case +usedCapacityPresent < +options['warning']:
         alertColor = '#0D6EFD';

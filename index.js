@@ -55,7 +55,7 @@ function download_file( content ) {
 //todo refactor
 document.getElementById('threshold_form').addEventListener('submit', (e) => {
 
-console.log('submit');
+//console.log('submit');
 e.preventDefault()
   if(+warningThreshold.value > 100 || +warningThreshold.value < 0) {
     warningThreshold.value = 30
