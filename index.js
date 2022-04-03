@@ -66,30 +66,40 @@ function download_file( content ) {
 }
 
 //todo refactor
-//document.getElementById('thresholdSetup').addEventListener('click', () => {
-//  warningThresholdNode = document.getElementById('warningThreshold');
-//  redThresholdNode = document.getElementById('redThreshold');
-//  if(warningThresholdNode.value > 100 || warningThresholdNode.value < 0) {
-//    warningThresholdNode.value = 30
-//  }
-//  if(redThresholdNode.value > 100 || redThresholdNode.value < 0) {
-//    redThresholdNode.value = 65
-//  }
-//  if(+warningThresholdNode.value >= +redThresholdNode.value) {
-//    if ( redThresholdNode.value != 100 ) {
-//      redThresholdNode.value = +warningThresholdNode.value + 1
-//      redThreshold = redThresholdNode.value
-//      warningThreshold = warningThresholdNode.value
-//    } else {
-//      warningThresholdNode.value = +redThresholdNode.value - 1
-//      warningThreshold = warningThresholdNode.value
-//      redThreshold = redThresholdNode.value
-//    }
-//  } else {
-//    redThreshold = redThresholdNode.value
-//    warningThreshold = warningThresholdNode.value
-//  }
-//})
+document.getElementById('thresholdSetup').addEventListener('click', () => {
+
+  console.log('warningThreshold', warningThreshold.value);
+  console.log('redThreshold', redThreshold.value);
+
+
+
+  if(+warningThreshold.value > 100 || +warningThreshold.value < 0) {
+    warningThreshold.value = 30
+  }
+  if(redThreshold.value > 100 || redThreshold.value < 0) {
+    redThreshold.value = 65
+  }
+  if(+warningThreshold.value >= +redThreshold.value) {
+    if ( +redThreshold.value != 100 ) {
+      redThreshold.value = +warningThreshold.value + 1
+    } else {
+      warningThreshold.value = +redThreshold.value - 1
+    }
+  }
+
+  console.log('warningThreshold', warningThreshold.value);
+  console.log('redThreshold', redThreshold.value);
+
+  const optionsObj = {
+    'options': {
+      'warning': warningThreshold.value,
+      'red': redThreshold.value
+    }
+  }
+
+  chrome.storage.sync.set(optionsObj);
+
+})
 const doughnutChart = new Chart(
   document.getElementById('doughnutChart'),
   doughnutConfig
