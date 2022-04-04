@@ -15,12 +15,12 @@ chrome.runtime.onMessage.addListener(async function ( message, sender, sendRespo
       if ( alerts && alerts.length != 0 ) {
 
         alerts.reverse().forEach(( value, index ) => {
-          table_body +=
-            `<tr>
-        <th scope="row">${alerts.length - index}</th>
-        <td>${value.usedCapacityPresent.toFixed(2)}%</td>
-        <td>${value.date}</td>
-      </tr>`
+          table_body += `
+            <tr>
+              <th scope="row">${alerts.length - index}</th>
+              <td>${value.usedCapacityPresent.toFixed(2)}%</td>
+              <td>${value.date}</td>
+            </tr>`
         })
         alert_body.innerHTML = table_body
       }
@@ -28,6 +28,8 @@ chrome.runtime.onMessage.addListener(async function ( message, sender, sendRespo
     sendResponse({status: 'ok'});
   }
 });
+
+//handle Export CSV file button click
 export_csv.addEventListener('click', () => {
   const csv = generateCSV(alerts);
   download_file(csv)
@@ -35,6 +37,7 @@ export_csv.addEventListener('click', () => {
 
 function generateCSV( objArray ) {
   if ( objArray.length != 0 ) {
+    // csv logic
     const array = typeof objArray !== 'object' ? JSON.parse(objArray) : objArray;
     let str = `${Object.keys(array[0]).map(value => `"${value}"`).join(",")}` + '\r\n';
     return array.reduce(( str, next ) => {
@@ -47,27 +50,37 @@ function generateCSV( objArray ) {
   }
 }
 
+
 function download_file( content ) {
   let b = new Blob([content], { type: 'text/csv' })
   var url = URL.createObjectURL(b);
   chrome.downloads.download({
     url: url // The object URL can be used as download URL
+  }, () => {
+    let node = `
+    <div id="success_message" class="alert alert-primary" role="alert" style="position: fixed;bottom: 50px;right: 50px; width: 300px; text-align: center;">
+      CSV file successfully created
+    </div>`;
+    document.getElementById('alert-section').innerHTML += node
+    setTimeout(() => {
+      document.getElementById('success_message').remove()
+    }, 2000)
   });
 }
 
-document.getElementById('threshold_form').addEventListener('submit', (e) => {
-
-e.preventDefault()
-  if(+warningThreshold.value > 100 || +warningThreshold.value < 0) {
+document.getElementById('threshold_form').addEventListener('submit', ( e ) => {
+  e.preventDefault()
+  if ( +warningThreshold.value > 100 || +warningThreshold.value < 0 ) {
     warningThreshold.value = 30
   }
-  if(redThreshold.value > 100 || redThreshold.value < 0) {
+  if ( redThreshold.value > 100 || redThreshold.value < 0 ) {
     redThreshold.value = 65
   }
-  if(+warningThreshold.value >= +redThreshold.value) {
+  if ( +warningThreshold.value >= +redThreshold.value ) {
     if ( +redThreshold.value != 100 ) {
       redThreshold.value = +warningThreshold.value + 1
-    } else {
+    }
+    else {
       warningThreshold.value = +redThreshold.value - 1
     }
   }
@@ -79,6 +92,7 @@ e.preventDefault()
     }
   }
 
+  //on options success update show message
   chrome.storage.sync.set(optionsObj, () => {
     let node = `
     <div id="success_message" class="alert alert-success" role="alert" style="position: fixed;bottom: 50px;right: 50px; width: 300px; text-align: center;">
@@ -87,18 +101,11 @@ e.preventDefault()
     document.getElementById('alert-section').innerHTML += node
     setTimeout(() => {
       document.getElementById('success_message').remove()
-    },2000)
+    }, 2000)
   });
-
 })
-const doughnutChart = new Chart(
-  document.getElementById('doughnutChart'),
-  doughnutConfig
-);
-const lineChart = new Chart(
-  document.getElementById('lineChart'),
-  configLine
-);
+
+
 
 function handleRadioClick() {
   if (document.getElementById('chart_toggle_doughnut').checked) {
@@ -111,6 +118,16 @@ function handleRadioClick() {
 }
 
 handleRadioClick()
+
 radioButtons.forEach(radio => {
   radio.addEventListener('click', handleRadioClick);
 });
+
+const doughnutChart = new Chart(
+  document.getElementById('doughnutChart'),
+  doughnutConfig
+);
+const lineChart = new Chart(
+  document.getElementById('lineChart'),
+  configLine
+);
