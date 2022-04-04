@@ -7,39 +7,31 @@ const doughnutChartBox = document.getElementById('doughnutChartBox');
 const lineChartBox = document.getElementById('lineChartBox');
 const radioButtons = document.querySelectorAll('input[name="chart_toggle_group"]');
 
+chrome.runtime.onMessage.addListener(async function ( message, sender, sendResponse ) {
+  if ( message === 'alerts_updated' ) {
+    await chrome.storage.sync.get(['alerts'], function ( result ) {
+      alerts = result['alerts']
+      let table_body = '';
+      if ( alerts && alerts.length != 0 ) {
 
-
-setInterval(async () => {
-  await chrome.storage.sync.get(['alerts'], function ( result ) {
-    alerts = result['alerts']
-  });
-  let table_body = '';
-
-  if(alerts && alerts.length != 0) {
-    alerts.forEach(( value, index ) => {
-      table_body +=
-        `<tr>
-        <th scope="row">${index + 1}</th>
+        alerts.reverse().forEach(( value, index ) => {
+          table_body +=
+            `<tr>
+        <th scope="row">${alerts.length - index}</th>
         <td>${value.usedCapacityPresent.toFixed(2)}%</td>
         <td>${value.date}</td>
       </tr>`
-    })
-    alert_body.innerHTML = table_body
+        })
+        alert_body.innerHTML = table_body
+      }
+    });
+    sendResponse({status: 'ok'});
   }
-}, 1000)
-
+});
 export_csv.addEventListener('click', () => {
-  filteredData = filterStoredData(alerts);
-  const csv = generateCSV(filteredData);
+  const csv = generateCSV(alerts);
   download_file(csv)
 })
-
-function filterStoredData( data ) {
-  filteredData = data.filter(( value ) => {
-    return value.alertLevel >= 1
-  })
-  return filteredData
-}
 
 function generateCSV( objArray ) {
   if ( objArray.length != 0 ) {
@@ -63,10 +55,8 @@ function download_file( content ) {
   });
 }
 
-//todo refactor
 document.getElementById('threshold_form').addEventListener('submit', (e) => {
 
-//console.log('submit');
 e.preventDefault()
   if(+warningThreshold.value > 100 || +warningThreshold.value < 0) {
     warningThreshold.value = 30
@@ -105,12 +95,10 @@ const doughnutChart = new Chart(
   document.getElementById('doughnutChart'),
   doughnutConfig
 );
-updateDoughnutChart(doughnutChart)
 const lineChart = new Chart(
   document.getElementById('lineChart'),
   configLine
 );
-updateLineChart(lineChart)
 
 function handleRadioClick() {
   if (document.getElementById('chart_toggle_doughnut').checked) {

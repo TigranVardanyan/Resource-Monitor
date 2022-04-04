@@ -1,6 +1,6 @@
 const labels = [
-  'Used Memory',
-  'Free Memory'
+  'Used Memory(%)',
+  'Free Memory(%)'
 ];
 const doughnutInitialData = {
   labels: labels,
@@ -20,18 +20,22 @@ const doughnutConfig = {
   options: {}
 };
 
-function updateDoughnutChart( doughnutChart ) {
-  setInterval(async () => {
-    chrome.runtime.sendMessage({ type: "getData" }, ( result ) => {
-      //console.log('updateDoughnutChart');
-      const data = result['result']
+chrome.runtime.onMessage.addListener(async function ( message, sender, sendResponse ) {
+  if ( message === 'data_updated' ) {
+    await chrome.storage.sync.get(['ram'], function ( result ) {
+      const data = result['ram']
       const last = data[data.length - 1]
-      const dataForDoughnut = [last['availableCapacity'], last['capacity']]
-      doughnutChart.data.datasets.forEach(( dataset ) => {
-        dataset.data = dataForDoughnut;
-        dataset.backgroundColor = [last['alertColor'], 'transparent']
-      });
-      doughnutChart.update();
+      const usedCapacity = ((last['capacity'] - last['availableCapacity']) / last['capacity'] * 100).toFixed(1);
+      const availableCapacity = (last['availableCapacity'] / last['capacity'] * 100).toFixed(1);
+      const dataForDoughnut = [usedCapacity, availableCapacity]
+      if ( doughnutChart ) {
+        doughnutChart.data.datasets.forEach(( dataset ) => {
+          dataset.data = dataForDoughnut;
+          dataset.backgroundColor = [last['alertColor'], 'transparent']
+        });
+        doughnutChart.update();
+      }
     })
-  }, 1000)
-}
+    sendResponse({status: 'ok'});
+  }
+});
