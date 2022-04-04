@@ -12,14 +12,17 @@
   <div class="accordion" id="accordionPanelsStayOpenExample">
     <div class="accordion-item">
       <h2 class="accordion-header" id="panelsStayOpen-headingOne">
-        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+        <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true"
+                aria-controls="panelsStayOpen-collapseOne">
           Charts
         </button>
       </h2>
-      <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
-        <div class="container">
+      <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show"
+           aria-labelledby="panelsStayOpen-headingOne">
+        <div class="container options">
           <div class="row">
-            <form id="threshold_form" class="row g-3">
+            <form id="threshold_form" class="row g-3 justify-content-center">
               <div class="col-md-6">
                 <label for="warningThreshold" class="form-label alert-warning">Warning Threshold Limit(use %)</label>
                 <input type="number" class="form-control" id="warningThreshold" value="30" min="0" max="100">
@@ -28,29 +31,51 @@
                 <label for="redThreshold" class="form-label alert-danger">Red Threshold Limit(use %)</label>
                 <input type="number" class="form-control" id="redThreshold" value="65" min="0" max="100">
               </div>
-              <input id="thresholdSetup" class="btn btn-primary" type="submit" value="Submit">
+              <div class="col-md-3">
+                <div class="row">
+                  <input id="thresholdSetup" class="btn btn-primary" type="submit" value="Submit">
+                </div>
+              </div>
             </form>
           </div>
         </div>
-        <div class="container">
-          <div class="row justify-content-center align-content-center">
+        <hr>
+        <div class="container charts">
+          <div id="chart_toggle" class="chart_toggle d-flex flex-row justify-content-center">
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="chart_toggle_group" id="chart_toggle_doughnut" checked>
+              <label class="form-check-label" for="chart_toggle_doughnut">
+                Doughnut Chart
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="chart_toggle_group" id="chart_toggle_line">
+              <label class="form-check-label" for="chart_toggle_line">
+                Line Chart
+              </label>
+            </div>
+          </div>
+          <div id="doughnutChartBox" class="row justify-content-center align-content-center">
             <div class="col-6">
               <canvas id="doughnutChart"></canvas>
             </div>
           </div>
         </div>
-        <div>
+        <div id="lineChartBox">
           <canvas id="lineChart"></canvas>
         </div>
       </div>
     </div>
     <div class="accordion-item">
       <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
-        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false"
+                aria-controls="panelsStayOpen-collapseTwo">
           Alert monitoring
         </button>
       </h2>
-      <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingTwo">
+      <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse"
+           aria-labelledby="panelsStayOpen-headingTwo">
         <div class="container">
           <div class="row">
             <div class="col export_col">

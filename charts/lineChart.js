@@ -64,5 +64,5 @@ function updateLineChart( lineChart ) {
       }
       lineChart.update();
     })
-  }, 3000)
+  }, 1000)
 }

@@ -1,3 +1,11 @@
 .export_col {
   padding: 20px 0 0 0;
 }
+
+.form-check {
+  padding: 10px 25px;
+}
+
+.options, .charts {
+  margin-bottom: 35px;
+}
