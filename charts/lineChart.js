@@ -48,21 +48,22 @@ const prepareDataForLineChart = ( data ) => {
   return dataForLineChart;
 }
 
-function updateLineChart( lineChart ) {
-  setInterval(async () => {
-    chrome.runtime.sendMessage({ type: "getData" }, ( result ) => {
-      //console.log('updateLineChart');
-      const data = result['result']
+chrome.runtime.onMessage.addListener(async function ( message, sender, sendResponse ) {
+  if ( message === 'data_updated' ) {
+    await chrome.storage.sync.get(['ram'], function ( result ) {
+      const data = result['ram']
       const preparedData = prepareDataForLineChart(data)
-      //console.log('preparedData', preparedData);
-      lineChart.data.datasets.forEach(( dataset ) => {
-        dataset.data = preparedData;
-      });
-      lineChart.options.scales.y = {
-        min: 0,
-        max: data[0]['capacity'],
+      if ( lineChart ) {
+        lineChart.data.datasets.forEach(( dataset ) => {
+          dataset.data = preparedData;
+        });
+        lineChart.options.scales.y = {
+          min: 0,
+          max: data[0]['capacity'],
+        }
+        lineChart.update();
       }
-      lineChart.update();
     })
-  }, 1000)
-}
+    sendResponse({status: 'ok'});
+  }
+});

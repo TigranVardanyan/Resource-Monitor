@@ -10,7 +10,7 @@ let alertColor = null;
 let data = [];
 let alerts = [];
 chrome.runtime.onInstalled.addListener(() => {
-  console.log('Worker inited');
+  console.log('Worker initialized');
 });
 chrome.storage.sync.set(initialObj);
 setInterval(async () => {
@@ -21,7 +21,6 @@ setInterval(async () => {
   await chrome.storage.sync.get(['ram', 'options', 'alerts'], function ( result ) {
     data = result['ram']
     options = result['options']
-    //console.log('options', options);
     switch ( true ) {
       case +usedCapacityPresent < +options['warning']:
         alertColor = '#0D6EFD';
@@ -35,6 +34,8 @@ setInterval(async () => {
         alertColor = '#F8D7DA';
         alertLevel = 2;
     }
+
+    //updating data
     const object = {
       capacity,
       availableCapacity,
@@ -43,11 +44,15 @@ setInterval(async () => {
       alertColor,
       alertLevel
     }
-
     data.push(object)
     //Error: QUOTA_BYTES_PER_ITEM quota exceeded
-    data = data.slice(data.length - 60, data.length)
+    while ( data.length > 50 ) {
+      data.shift();
+    }
+    chrome.storage.sync.set({ 'ram': data });
+    chrome.runtime.sendMessage('data_updated')
 
+    //updating alerts
     const alertObject = {
       usedCapacityPresent,
       date: (new Date()).toLocaleTimeString(),
@@ -55,18 +60,11 @@ setInterval(async () => {
     if ( alertLevel != 0 ) {
       alerts.push(alertObject)
       //Error: QUOTA_BYTES_PER_ITEM quota exceeded
-      alerts = alerts.slice(alerts.length - 60, alerts.length)
+      while ( alerts.length > 50 ) {
+        alerts.shift();
+      }
+      chrome.storage.sync.set({ 'alerts': alerts });
+      chrome.runtime.sendMessage('alerts_updated')
     }
-    chrome.storage.sync.set({ 'ram': data });
-    chrome.storage.sync.set({ 'alerts': alerts });
   });
-}, 1000)
-
-chrome.runtime.onMessage.addListener(function ( request, sender, sendResponse ) {
-  if ( request.type == "getData" ) {
-    const obj = {
-      "result": data
-    }
-    sendResponse(obj);
-  }
-});
+}, 2500)

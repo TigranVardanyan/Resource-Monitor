@@ -9,3 +9,7 @@
 .options, .charts {
   margin-bottom: 35px;
 }
+
+.form-check-input {
+  cursor: pointer;
+}
