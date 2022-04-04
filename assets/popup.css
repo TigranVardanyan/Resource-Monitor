@@ -1,0 +1,12 @@
+* {
+  font-family: 'Roboto', sans-serif;
+}
+
+.heading {
+  padding: 15px 15px 25px;
+  text-align: center;
+}
+
+.heading_span {
+  color: #0D6EFD
+}
