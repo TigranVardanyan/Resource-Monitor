@@ -39,8 +39,20 @@ Solution - remove extension from browser, rename project folder, upload by Load 
 
 Also fixes any unexpected termination of the extension
 ```
+
+### Changelog
+* [1.0.0](https://github.com/TigranVardanyan/Resource-Monitor)
+* * Stable version
+* [1.0.1](https://github.com/TigranVardanyan/Resource-Monitor)
+* * UI improvements
+* * Refactoring
+* * Added roadmap
+* [1.0.2](https://github.com/TigranVardanyan/Resource-Monitor)
+* * Bug fixes
+* * Chart switcher
+* * UI improvements
+* * Refactoring
+
 # Roadmap
-
-* Interactive icon for extension - [1.0.2](https://github.com/TigranVardanyan/Resource-Monitor/issues/2)
-
-* CPU usage monitoring  - [1.1.0](https://github.com/TigranVardanyan/Resource-Monitor/issues/1)
+* Interactive icon for extension - [1.1.0](https://github.com/TigranVardanyan/Resource-Monitor/issues/2)
+* CPU usage monitoring  - [1.2.0](https://github.com/TigranVardanyan/Resource-Monitor/issues/1)

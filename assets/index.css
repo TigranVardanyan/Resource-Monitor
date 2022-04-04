@@ -4,7 +4,7 @@
 
 .table_wrapper {
   height: 70vh;
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 
 .form-check {

@@ -1,3 +1,6 @@
+//worker background.js
+
+
 const initialObj = {
   'ram': [],
   'options': {
@@ -12,7 +15,12 @@ let alerts = [];
 chrome.runtime.onInstalled.addListener(() => {
   //console.log('Worker initialized');
 });
+
+
+//storage initialization with initial data
 chrome.storage.sync.set(initialObj);
+
+
 setInterval(async () => {
   a = await chrome.system.memory.getInfo();
   const capacity = a.capacity;
@@ -49,7 +57,10 @@ setInterval(async () => {
     while ( data.length > 50 ) {
       data.shift();
     }
+
+
     chrome.storage.sync.set({ 'ram': data });
+    //inform listeners about ram update
     chrome.runtime.sendMessage('data_updated')
 
     //updating alerts
@@ -63,7 +74,10 @@ setInterval(async () => {
       while ( alerts.length > 50 ) {
         alerts.shift();
       }
+
+
       chrome.storage.sync.set({ 'alerts': alerts });
+      //inform listeners about alerts update
       chrome.runtime.sendMessage('alerts_updated')
     }
   });
