@@ -56,13 +56,15 @@
             </div>
           </div>
           <div id="doughnutChartBox" class="row justify-content-center align-content-center">
-            <div class="col-6">
+            <div class="col-5">
               <canvas id="doughnutChart"></canvas>
             </div>
           </div>
         </div>
-        <div id="lineChartBox">
-          <canvas id="lineChart"></canvas>
+        <div id="lineChartBox" class="row justify-content-center align-content-center">
+          <div class="col-6">
+            <canvas id="lineChart"></canvas>
+          </div>
         </div>
       </div>
     </div>
@@ -80,17 +82,19 @@
           <div class="row">
             <div class="col export_col">
               <button id="export_csv" class="btn btn-primary">Export CSV file</button>
-              <table class="table">
-                <thead>
-                <tr>
-                  <th scope="col">#</th>
-                  <th scope="col">Alarm description</th>
-                  <th scope="col">Date</th>
-                </tr>
-                </thead>
-                <tbody id="alert_body">
-                </tbody>
-              </table>
+              <div class="table_wrapper">
+                <table class="table">
+                  <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Alarm description</th>
+                    <th scope="col">Date</th>
+                  </tr>
+                  </thead>
+                  <tbody id="alert_body">
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
         </div>

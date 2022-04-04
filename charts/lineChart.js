@@ -3,7 +3,7 @@ let emptyDataArray = Array(50).fill(5000000000, 0, 49)
 const lineInitialData = {
   labels: emptyLabelsArray,
   datasets: [{
-    label: 'Used memory',
+    label: 'Used memory(%)',
     data: emptyDataArray,
     fill: true,
     borderColor: 'rgb(75, 192, 192)',
@@ -17,7 +17,7 @@ const configLine = {
     scales: {
       y: {
         min: 0,
-        max: 1,
+        max: 100,
       }
     }
   }
@@ -26,7 +26,7 @@ const prepareDataForLineChart = ( data ) => {
   let dataForLineChart;
   if ( data.length != 0 ) {
     dataForLineChart = data.map(( val, key ) => {
-      return val['availableCapacity'];
+      return (val['usedCapacityPresent']).toFixed(2);
     });
   }
   if ( data.length == 0 ) {
@@ -42,7 +42,7 @@ const prepareDataForLineChart = ( data ) => {
   else {
     dataForLineChart = data.slice(data.length - 50, data.length)
     dataForLineChart = dataForLineChart.map(( val, key ) => {
-      return val['availableCapacity'];
+      return (val['usedCapacityPresent']).toFixed(2);
     });
   }
   return dataForLineChart;
@@ -57,10 +57,6 @@ chrome.runtime.onMessage.addListener(async function ( message, sender, sendRespo
         lineChart.data.datasets.forEach(( dataset ) => {
           dataset.data = preparedData;
         });
-        lineChart.options.scales.y = {
-          min: 0,
-          max: data[0]['capacity'],
-        }
         lineChart.update();
       }
     })

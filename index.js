@@ -13,10 +13,11 @@ chrome.runtime.onMessage.addListener(async function ( message, sender, sendRespo
       alerts = result['alerts']
       let table_body = '';
       if ( alerts && alerts.length != 0 ) {
-        alerts.forEach(( value, index ) => {
+
+        alerts.reverse().forEach(( value, index ) => {
           table_body +=
             `<tr>
-        <th scope="row">${index + 1}</th>
+        <th scope="row">${alerts.length - index}</th>
         <td>${value.usedCapacityPresent.toFixed(2)}%</td>
         <td>${value.date}</td>
       </tr>`
@@ -54,10 +55,8 @@ function download_file( content ) {
   });
 }
 
-//todo refactor
 document.getElementById('threshold_form').addEventListener('submit', (e) => {
 
-//console.log('submit');
 e.preventDefault()
   if(+warningThreshold.value > 100 || +warningThreshold.value < 0) {
     warningThreshold.value = 30

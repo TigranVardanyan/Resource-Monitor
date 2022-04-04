@@ -10,7 +10,7 @@ let alertColor = null;
 let data = [];
 let alerts = [];
 chrome.runtime.onInstalled.addListener(() => {
-  console.log('Worker initialized');
+  //console.log('Worker initialized');
 });
 chrome.storage.sync.set(initialObj);
 setInterval(async () => {

@@ -2,6 +2,11 @@
   padding: 20px 0 0 0;
 }
 
+.table_wrapper {
+  height: 70vh;
+  overflow-y: scroll;
+}
+
 .form-check {
   padding: 10px 25px;
 }
