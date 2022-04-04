@@ -3,6 +3,9 @@ const alert_body = document.getElementById('alert_body')
 const export_csv = document.getElementById('export_csv')
 const warningThreshold = document.getElementById('warningThreshold');
 const redThreshold = document.getElementById('redThreshold');
+const doughnutChartBox = document.getElementById('doughnutChartBox');
+const lineChartBox = document.getElementById('lineChartBox');
+const radioButtons = document.querySelectorAll('input[name="chart_toggle_group"]');
 
 
 
@@ -24,6 +27,7 @@ setInterval(async () => {
     alert_body.innerHTML = table_body
   }
 }, 1000)
+
 export_csv.addEventListener('click', () => {
   filteredData = filterStoredData(alerts);
   const csv = generateCSV(filteredData);
@@ -107,3 +111,18 @@ const lineChart = new Chart(
   configLine
 );
 updateLineChart(lineChart)
+
+function handleRadioClick() {
+  if (document.getElementById('chart_toggle_doughnut').checked) {
+    doughnutChartBox.style.display = 'flex';
+    lineChartBox.style.display = 'none';
+  } else {
+    doughnutChartBox.style.display = 'none';
+    lineChartBox.style.display = 'flex';
+  }
+}
+
+handleRadioClick()
+radioButtons.forEach(radio => {
+  radio.addEventListener('click', handleRadioClick);
+});
